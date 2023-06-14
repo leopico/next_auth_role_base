@@ -9,6 +9,7 @@ export const authOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
+  //This is modified for jwt's token
   callbacks: {
     async jwt({ token }) {
       token.role = "member";

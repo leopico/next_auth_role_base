@@ -1,10 +1,9 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
+//This is for authorization
 export default withAuth(
-  // `withAuth` augments your `Request` with the user's token.
   function middleware(req) {
-    console.log(req.nextauth);
     if (
       req.nextUrl.pathname === "/admin-dashboard" &&
       req.nextauth.token?.role !== "admin"
@@ -13,7 +12,9 @@ export default withAuth(
     }
   },
   {
+    //This callbacks is comming from [...nextauth].js
     callbacks: {
+      //if this authorized fn is return false then go to signIn page and then true then go to middleware fn and proceed
       authorized: (params) => {
         let { token } = params;
         return !!token;
@@ -22,4 +23,5 @@ export default withAuth(
   }
 );
 
+//this is for authentication
 export const config = { matcher: ["/admin-dashboard", "/profile-page"] };
